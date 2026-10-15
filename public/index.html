@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="description" content="ATLAS — demonstração local de um atendente comercial com IA e CRM." />
+  <title>ATLAS · Vendedor Virtual</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+  <script defer type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" aria-label="Menu principal">
+      <div class="brand"><div class="brand-icon">a<span>.</span></div><div><strong>atlas</strong><small>Sales intelligence</small></div></div>
+      <div class="workspace-tag"><span class="pulse"></span> Workspace de demonstração</div>
+      <div class="nav-label">GERENCIAMENTO</div>
+      <nav class="nav-links" aria-label="Navegação">
+        <button class="nav-item current" id="nav-dashboard" type="button"><span class="nav-symbol">▦</span> Visão geral</button>
+        <button class="nav-item" id="nav-leads" type="button"><span class="nav-symbol">☷</span> Conversas <span class="nav-count" id="nav-leads-count">3</span></button>
+        <button class="nav-item" id="nav-ready" type="button"><span class="nav-symbol">✓</span> Prontos para fechar</button>
+        <button class="nav-item" id="nav-followup" type="button"><span class="nav-symbol">↺</span> Acompanhamento</button>
+      </nav>
+      <div class="nav-label tools-label">FERRAMENTAS</div>
+      <nav class="nav-links" aria-label="Ferramentas">
+        <button class="nav-item" id="import-btn" type="button"><span class="nav-symbol">⇧</span> Importar contatos</button>
+        <button class="nav-item" id="export-btn" type="button"><span class="nav-symbol">⇩</span> Exportar dados</button>
+        <button class="nav-item" id="reset-btn" type="button"><span class="nav-symbol">↻</span> Reiniciar demonstração</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="ai-sidebar-status"><span class="round-spark">✧</span><div><strong>Assistente comercial</strong><small id="side-ai-label">Verificando configuração...</small></div></div>
+        <p>Ambiente isolado. Nenhuma mensagem é enviada ao WhatsApp.</p>
+        <div class="user-row"><div class="avatar owner">CD</div><div><strong>Administrador</strong><small>Modo de demonstração</small></div><span class="chevron">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div class="breadcrumbs">Área de trabalho <span>/</span> <strong>Visão geral</strong></div><div class="top-actions"><span id="top-ai-status" class="mode-pill">Carregando...</span><span class="top-divider"></span><span class="date-label" id="current-date"></span></div></header>
+      <div class="content">
+        <div class="intro-row"><div><div class="eyebrow">CENTRAL DE OPERAÇÕES</div><h1>Bom dia, administrador <span class="accent-dot">.</span></h1><p>Seu atendimento comercial, organizado em um só lugar.</p></div><button type="button" class="primary-btn" id="new-lead">+ Novo lead</button></div>
+        <div class="demo-notice"><span class="notice-mark">i</span><span><strong>Demonstração local.</strong> Todos os clientes e produtos iniciais são fictícios. As conversas abaixo não utilizam WhatsApp real. <span id="live-privacy"></span></span></div>
+        <section class="stats" aria-label="Indicadores de vendas">
+          <article class="stat-card"><span class="stat-title">Total de leads <span class="stat-glyph">☷</span></span><div class="stat-value" id="stat-total">0</div><span class="stat-foot"><span class="tiny-dot emerald"></span> Na demonstração</span></article>
+          <article class="stat-card"><span class="stat-title">Em negociação <span class="stat-glyph">↗</span></span><div class="stat-value" id="stat-negotiating">0</div><span class="stat-foot">Atendimentos ativos</span></article>
+          <article class="stat-card"><span class="stat-title">Prontos para fechar <span class="stat-glyph">✓</span></span><div class="stat-value" id="stat-ready">0</div><span class="stat-foot"><span class="tiny-dot emerald"></span> Requerem ação humana</span></article>
+          <article class="stat-card"><span class="stat-title">Acompanhamento <span class="stat-glyph">◷</span></span><div class="stat-value" id="stat-followup">0</div><span class="stat-foot">Retomada manual simulada</span></article>
+        </section>
+        <div class="section-heading"><div><h2>Central de atendimento</h2><p>Converse como cliente e observe a classificação da IA.</p></div><span class="section-tag">INTERFACE DE SIMULAÇÃO</span></div>
+        <section class="workspace" aria-label="Atendimento simulado">
+          <div class="inbox panel-col"><div class="pane-title"><div><h3>Conversas</h3><p id="inbox-subtitle">Todos os contatos</p></div><button type="button" title="Adicionar lead" class="icon-button" id="new-lead-short">+</button></div><div class="search-box"><span>⌕</span><input id="search" placeholder="Buscar por nome ou negócio" aria-label="Buscar conversas" /></div><div id="leads-list" class="leads-list"></div><div class="inbox-footer"><span class="tiny-dot emerald"></span> Dados armazenados apenas neste navegador</div></div>
+          <div class="chat panel-col"><div class="chat-header"><div class="chat-person"><div id="chat-avatar" class="avatar">AL</div><div><h3 id="chat-name">Selecione um contato</h3><p id="chat-subtitle">Canal de teste • Sem WhatsApp conectado</p></div></div><span class="chat-session-label" id="chat-status">Demonstração</span></div><div class="conversation-area" id="conversation" aria-live="polite"></div><div class="typing" id="typing" hidden><span></span><span></span><span></span> A assistente está preparando a resposta</div><div class="composer"><div class="composer-help" id="composer-help">Escreva como se fosse um cliente interessado.</div><div class="composer-line"><label for="audio-input" class="attach-btn" title="Selecionar áudio para transcrição" id="audio-label">♫<input id="audio-input" type="file" accept="audio/*,.ogg,.m4a,.mp3,.wav,.webm" hidden /></label><textarea id="message" rows="1" placeholder="Digite uma mensagem como cliente..." aria-label="Mensagem"></textarea><button type="button" id="send" class="send-btn">Enviar <span>→</span></button></div><div class="composer-foot"><span>Enter para enviar · Shift+Enter para nova linha</span><span id="composer-mode">Respostas simuladas</span></div></div></div>
+          <div class="inspector panel-col"><div class="pane-title"><div><h3>Detalhes do lead</h3><p>Qualificação inteligente</p></div><span class="details-mark">···</span></div><div class="inspector-scroll"><div class="profile-block"><div id="profile-avatar" class="avatar large">AL</div><h3 id="profile-name">Contato</h3><p id="profile-business">—</p><span id="profile-stage" class="stage-pill">Novo</span></div><div class="divider"></div><div class="detail-group"><h4>INTENÇÃO DE COMPRA</h4><div class="intent-row"><strong id="intent-text">Em avaliação</strong><strong id="intent-score">0/100</strong></div><div class="progress-track"><div id="intent-bar" class="progress-bar"></div></div><small>Pontuação ilustrativa, não probabilidade de conversão.</small></div><div class="divider"></div><div class="detail-group"><h4>INFORMAÇÕES</h4><div class="detail-line"><span>Origem</span><strong id="detail-source">Tráfego pago</strong></div><div class="detail-line"><span>Última interação</span><strong id="detail-activity">Agora</strong></div><div class="detail-line"><span>Próximo passo</span><strong id="detail-next">Qualificar</strong></div></div><div class="divider"></div><div class="detail-group"><h4>ANÁLISE DO ATENDIMENTO</h4><p id="detail-reason" class="analysis-text">Inicie uma conversa para classificar o interesse.</p></div><div class="divider"></div><div class="detail-group"><h4>CONTROLE DO VENDEDOR</h4><button id="toggle-manual" type="button" class="secondary-btn">Assumir conversa</button><button id="followup-btn" type="button" class="outline-btn">Simular acompanhamento</button><p class="control-note">Acompanhamentos aqui são apenas inseridos nesta tela.</p></div></div></div>
+        </section>
+        <footer class="page-footer"><span>ATLAS Sales Intelligence · Protótipo 0.1</span><span>Desenvolvido para demonstração · Sem envios externos ao WhatsApp</span></footer>
+      </div>
+    </main>
+  </div>
+  <dialog id="lead-dialog" class="modal"><form id="lead-form" method="dialog"><div class="modal-head"><div><h3>Novo lead fictício</h3><p>Adicione um contato para testar outro cenário.</p></div><button type="button" class="modal-x" id="close-modal">×</button></div><label>Nome<input name="name" required maxlength="60" placeholder="Ex.: Rafael Souza" /></label><label>Tipo de negócio<input name="business" maxlength="80" placeholder="Ex.: Loja de roupas" /></label><label>Origem<select name="source"><option>Tráfego pago</option><option>Indicação</option><option>Lista de teste</option></select></label><div class="modal-footer"><button type="button" class="outline-btn" id="cancel-modal">Cancelar</button><button type="submit" class="primary-btn">Criar lead</button></div></form></dialog>
+  <input id="csv-input" type="file" accept=".csv,text/csv" hidden />
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
